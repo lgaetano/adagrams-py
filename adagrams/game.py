@@ -54,11 +54,18 @@ def draw_letters():
         else:
             # Add letter
             letter_bank[letter] = letter_bank.get(letter, 1)
-                
+    #TODO 1. allowing for duplicates. 2. Change k to 10     
     return list(letter_bank.keys())   #TODO -- account for duplicate letters
     
 def uses_available_letters(word, letter_bank):
-    pass
+    letter_bank_2 = letter_bank[:]
+
+    for letter in word:
+        if letter not in letter_bank_2:
+            return False
+        else:
+            letter_bank_2.remove(letter)
+    return True
 
 def score_word(word):
     pass

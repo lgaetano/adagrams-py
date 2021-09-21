@@ -1,3 +1,7 @@
+from random import choices
+
+
+
 LETTER_POOL = {
     'A': 9, 
     'B': 2, 
@@ -27,18 +31,18 @@ LETTER_POOL = {
     'Z': 1
 }
 
-from random import choices
 
-def draw_letters():
-    '''
-    Returns a list of 10 letters to user.  
-    '''
 
-    letter_bank = {
-        'X': 7,
-        'Y': 2, 
-        'Z': 1        
-    }
+# def draw_letters():
+#     '''
+#     Returns a list of 10 letters to user.  
+#     '''
+
+    # letter_bank = {
+    #     'X': 7,
+    #     'Y': 2, 
+    #     'Z': 1        
+    # }
 
     # Randomly select a letter according to its weight in LETTER_POOL
     # while len(letter_bank) < 10:
@@ -61,17 +65,32 @@ def draw_letters():
     
     
     # Create list to display letters by frequency
-    letter_bank_list = []
-    for letter, freq in letter_bank.items():
-        for i in range(freq):
-            letter_bank_list.append(letter)
+    # letter_bank_list = []
+    # for letter, freq in letter_bank.items():
+    #     for i in range(freq):
+    #         letter_bank_list.append(letter)
 
-    return letter_bank_list
+    # return letter_bank_list
 
     # return list(letter_bank.keys())
+
+# test_values = draw_letters()
+# print(test_values)
+
+
+# letters = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"]
+# word = "OOG"
+# #WAVE 2
+# def uses_available_letters(word,letter_bank):
+
+#     letter_bank_2 = letter_bank[:]
+
+#     for letter in word:
+#         if letter not in letter_bank_2:
+#             return False
+#         else:
+#             letter_bank_2.remove(letter)
+#     return True
     
-
-
-
-test_values = draw_letters()
-print(test_values)
+# is_valid = uses_available_letters(word, letters)
+# print(is_valid)
