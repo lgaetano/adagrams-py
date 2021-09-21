@@ -29,30 +29,42 @@ LETTER_POOL = {
 }
 
 def draw_letters():
+    '''
+    Returns a letter bank list of 10 letters to user.  
+    '''
+
     letter_bank = {}
-    # Loop 10 times to add 10 letters to drawn letters
-    
-        # Randomly select a letter according to its weight in LETTER_POOL
-        # letter =  possibly using random.choices() 
+
+    # Randomly select a letter according to its weight in LETTER_POOL
     while len(letter_bank) < 10:
         letter_pool_keys = list(LETTER_POOL.keys())
-        weights = list(LETTER_POOL.values())
-        letter = choices(letter_pool_keys, weights, k=1)
+        weighted_values = list(LETTER_POOL.values())
+        # random.choices(population, weights, k) --> returns single letter list
+        letter = choices(letter_pool_keys, weighted_values, k=1)
         letter = letter[0]
     
-        if letter in letter_bank:    
+        if letter in letter_bank:
+            # Ensure letter does not occur more frequently than in LETTER_POOL 
             if letter_bank[letter] > LETTER_POOL[letter]:
                 pass
             else:
+                # Increment letter frequency
                 letter_bank[letter] = letter_bank.get(letter, 0) + 1
         else:
-            letter_bank[letter] = letter_bank.get(letter, 0) + 1
-        #drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
-                
-    return list(letter_bank.keys())
+            # Add letter
+            letter_bank[letter] = letter_bank.get(letter, 1)
+    #TODO 1. allowing for duplicates. 2. Change k to 10     
+    return list(letter_bank.keys())   #TODO -- account for duplicate letters
     
 def uses_available_letters(word, letter_bank):
-    pass
+    letter_bank_2 = letter_bank[:]
+
+    for letter in word:
+        if letter not in letter_bank_2:
+            return False
+        else:
+            letter_bank_2.remove(letter)
+    return True
 
 def score_word(word):
     pass

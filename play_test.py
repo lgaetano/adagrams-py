@@ -33,43 +33,64 @@ LETTER_POOL = {
 
 
 
-def draw_letters():
-    '''
-    Returns a 10 letter 'hand' for user.
-    '''
-    # Create a data structure to store drawn letters
-    drawn_letters = {
-        # 'V': 2, 
-        # 'W': 1, 
-        # 'X': 1, 
-        # 'Y': 1,
-        # 'H': 1, 
-        # 'Z': 2
-    }
+# def draw_letters():
+#     '''
+#     Returns a list of 10 letters to user.  
+#     '''
 
-    # Loop 10 times to add 10 letters to drawn letters
+    # letter_bank = {
+    #     'X': 7,
+    #     'Y': 2, 
+    #     'Z': 1        
+    # }
+
+    # Randomly select a letter according to its weight in LETTER_POOL
+    # while len(letter_bank) < 10:
+        # letter_pool_keys = list(LETTER_POOL.keys())
+        # weighted_values = list(LETTER_POOL.values())
+        # # random.choices(population, weights, k) --> returns single letter list
+        # letter = choices(letter_pool_keys, weighted_values, k=1)
+        # letter = letter[0]
     
-        # Randomly select a letter according to its weight in LETTER_POOL
-        # letter =  possibly using random.choices() 
-    while len(drawn_letters) < 10:
-        letter_pool_keys = list(LETTER_POOL.keys())
-        weights = list(LETTER_POOL.values())
-        letter = choices(letter_pool_keys, weights, k=1)
-        letter = letter[0]
+        # if letter in letter_bank:
+        #     # Ensure letter does not occur more frequently than in LETTER_POOL 
+        #     if letter_bank[letter] > LETTER_POOL[letter]:
+        #         pass
+        #     else:
+        #         # Increment letter frequency
+        #         letter_bank[letter] = letter_bank.get(letter, 0) + 1
+        # else:
+        #     # Add letter
+        #     letter_bank[letter] = letter_bank.get(letter, 1)
     
-        if letter in drawn_letters:    
-            if drawn_letters[letter] > LETTER_POOL[letter]:
-                pass
-            else:
-                drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
-        else:
-            drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
-        #drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
-                
-
     
-    return list(drawn_letters.keys())
+    # Create list to display letters by frequency
+    # letter_bank_list = []
+    # for letter, freq in letter_bank.items():
+    #     for i in range(freq):
+    #         letter_bank_list.append(letter)
+
+    # return letter_bank_list
+
+    # return list(letter_bank.keys())
+
+# test_values = draw_letters()
+# print(test_values)
 
 
-test_values = draw_letters()
-print(test_values)
+# letters = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"]
+# word = "OOG"
+# #WAVE 2
+# def uses_available_letters(word,letter_bank):
+
+#     letter_bank_2 = letter_bank[:]
+
+#     for letter in word:
+#         if letter not in letter_bank_2:
+#             return False
+#         else:
+#             letter_bank_2.remove(letter)
+#     return True
+    
+# is_valid = uses_available_letters(word, letters)
+# print(is_valid)
