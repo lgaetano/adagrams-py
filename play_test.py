@@ -31,30 +31,35 @@ from random import choices
 
 def draw_letters():
     '''
-    Returns a 10 letter 'hand' for player.
+    Returns a 10 letter 'hand' for user.
     '''
-    users_letters = {
-        'V': 2, 
-        'W': 1, 
-        'X': 1, 
-        'Y': 1,
-        'H': 1, 
-        'Z': 2
+    # Create a data structure to store drawn letters
+    drawn_letters = {
+        # 'V': 2, 
+        # 'W': 1, 
+        # 'X': 1, 
+        # 'Y': 1,
+        # 'H': 1, 
+        # 'Z': 2
     }
 
-    while len(users_letters) < 11:
-        # letter = Randomly select a letter, ossibly using random.choices() 
-        # if too many of that letter
-        if users_letters[letter] > LETTER_POOL[letter]:
-            continue
-        else:
-            users_letters[letter] = users_letters.get(letter, 0) + 1
-                
+    # Loop 10 times to add 10 letters to drawn letters
+    # while len(drawn_letters) < 10:
+        # Randomly select a letter according to its weight in LETTER_POOL
+        # letter =  possibly using random.choices() 
         
-    #
+    letter = 'H'
+        # Make sure specific letter is not drawn too many times by comparing
+        #  to values in LETTER_POOL  
+        # if drawn_letters[letter] > LETTER_POOL[letter]:
+        #     continue
+        # else:
+        #     drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
+    drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
+                
 
 
-    return list(letters.values())
+    return list(drawn_letters.values())
 
 
 test_values = draw_letters()
