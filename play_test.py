@@ -1,3 +1,7 @@
+from random import choices
+
+
+
 LETTER_POOL = {
     'A': 9, 
     'B': 2, 
@@ -27,7 +31,7 @@ LETTER_POOL = {
     'Z': 1
 }
 
-from random import choices
+
 
 def draw_letters():
     '''
@@ -44,22 +48,27 @@ def draw_letters():
     }
 
     # Loop 10 times to add 10 letters to drawn letters
-    # while len(drawn_letters) < 10:
+    
         # Randomly select a letter according to its weight in LETTER_POOL
         # letter =  possibly using random.choices() 
-        
-    letter = 'H'
-        # Make sure specific letter is not drawn too many times by comparing
-        #  to values in LETTER_POOL  
-        # if drawn_letters[letter] > LETTER_POOL[letter]:
-        #     continue
-        # else:
-        #     drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
-    drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
+    while len(drawn_letters) < 10:
+        letter_pool_keys = list(LETTER_POOL.keys())
+        weights = list(LETTER_POOL.values())
+        letter = choices(letter_pool_keys, weights, k=1)
+        letter = letter[0]
+    
+        if letter in drawn_letters:    
+            if drawn_letters[letter] > LETTER_POOL[letter]:
+                pass
+            else:
+                drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
+        else:
+            drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
+        #drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
                 
 
-
-    return list(drawn_letters.values())
+    
+    return list(drawn_letters.keys())
 
 
 test_values = draw_letters()
