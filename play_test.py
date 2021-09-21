@@ -31,35 +31,46 @@ from random import choices
 
 def draw_letters():
     '''
-    Returns a 10 letter 'hand' for user.
+    Returns a list of 10 letters to user.  
     '''
-    # Create a data structure to store drawn letters
-    drawn_letters = {
-        # 'V': 2, 
-        # 'W': 1, 
-        # 'X': 1, 
-        # 'Y': 1,
-        # 'H': 1, 
-        # 'Z': 2
+
+    letter_bank = {
+        'X': 7,
+        'Y': 2, 
+        'Z': 1        
     }
 
-    # Loop 10 times to add 10 letters to drawn letters
-    # while len(drawn_letters) < 10:
-        # Randomly select a letter according to its weight in LETTER_POOL
-        # letter =  possibly using random.choices() 
-        
-    letter = 'H'
-        # Make sure specific letter is not drawn too many times by comparing
-        #  to values in LETTER_POOL  
-        # if drawn_letters[letter] > LETTER_POOL[letter]:
-        #     continue
+    # Randomly select a letter according to its weight in LETTER_POOL
+    # while len(letter_bank) < 10:
+        # letter_pool_keys = list(LETTER_POOL.keys())
+        # weighted_values = list(LETTER_POOL.values())
+        # # random.choices(population, weights, k) --> returns single letter list
+        # letter = choices(letter_pool_keys, weighted_values, k=1)
+        # letter = letter[0]
+    
+        # if letter in letter_bank:
+        #     # Ensure letter does not occur more frequently than in LETTER_POOL 
+        #     if letter_bank[letter] > LETTER_POOL[letter]:
+        #         pass
+        #     else:
+        #         # Increment letter frequency
+        #         letter_bank[letter] = letter_bank.get(letter, 0) + 1
         # else:
-        #     drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
-    drawn_letters[letter] = drawn_letters.get(letter, 0) + 1
-                
+        #     # Add letter
+        #     letter_bank[letter] = letter_bank.get(letter, 1)
+    
+    
+    # Create list to display letters by frequency
+    letter_bank_list = []
+    for letter, freq in letter_bank.items():
+        for i in range(freq):
+            letter_bank_list.append(letter)
 
+    return letter_bank_list
 
-    return list(drawn_letters.values())
+    # return list(letter_bank.keys())
+    
+
 
 
 test_values = draw_letters()
