@@ -1,4 +1,5 @@
 from random import choices
+
 LETTER_POOL = {
     'A': 9, 
     'B': 2, 
