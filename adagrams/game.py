@@ -30,32 +30,16 @@ LETTER_POOL = {
 }
 
 def draw_letters():
+    '''Return a list of 10 randomly selected letters to user, weighted by
+    frequency in master list, LETTER_POOL.
     '''
-    Returns a letter bank list of 10 letters to user.  
-    '''
-
-    letter_bank = {}
-
     # Randomly select a letter according to its weight in LETTER_POOL
-    while len(letter_bank) < 10:
-        letter_pool_keys = list(LETTER_POOL.keys())
-        weighted_values = list(LETTER_POOL.values())
-        # random.choices(population, weights, k) --> returns single letter list
-        letter = choices(letter_pool_keys, weighted_values, k=1)
-        letter = letter[0]
-    
-        if letter in letter_bank:
-            # Ensure letter does not occur more frequently than in LETTER_POOL 
-            if letter_bank[letter] > LETTER_POOL[letter]:
-                pass
-            else:
-                # Increment letter frequency
-                letter_bank[letter] = letter_bank.get(letter, 0) + 1
-        else:
-            # Add letter
-            letter_bank[letter] = letter_bank.get(letter, 1)
-    #TODO 1. allowing for duplicates. 2. Change k to 10     
-    return list(letter_bank.keys())   #TODO -- account for duplicate letters
+    # random.choices(population, weights, k) --> returns 10-letter list
+    letter_pool_keys = list(LETTER_POOL.keys())
+    weighted_values = list(LETTER_POOL.values())
+    letter_bank = choices(letter_pool_keys, weighted_values, k=10)
+
+    return letter_bank    
     
 def uses_available_letters(word, letter_bank):
     letter_bank_2 = letter_bank[:]
