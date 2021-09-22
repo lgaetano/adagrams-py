@@ -64,5 +64,19 @@ def score_word(word):
 
     return score
 
-result = score_word("XXXXXXXXX")
-print(result)
+words = ["MMMM", "WWW"]
+
+def get_highest_word_score(word_list):
+    
+    words_scores_dict = {}
+
+    for word in word_list:
+        score_word = max(word)
+    
+    max_score_word = max(word_list, key=score_word)
+    return (max_score_word, score_word(max_score_word))
+    
+
+
+best_word = get_highest_word_score(words)
+print(best_word)
