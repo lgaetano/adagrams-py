@@ -64,19 +64,68 @@ def score_word(word):
 
     return score
 
-words = ["MMMM", "WWW"]
+words = ["BBBBBB", "AAAAAAAAAA"]
 
 def get_highest_word_score(word_list):
     
     words_scores_dict = {}
 
+    # Score words and store in words_scores_dict
     for word in word_list:
-        score_word = max(word)
+        words_scores_dict[word] = score_word(word)
     
-    max_score_word = max(word_list, key=score_word)
-    return (max_score_word, score_word(max_score_word))
+    # Find highest scores
+    highest = max(words_scores_dict.values())
+    
+    highest_values = [k for k, v in words_scores_dict.items() if v == highest]
+    # ['BBBBBB', 'AAAAAAAAAA']
+    print(f'{highest_values=}')
+
+    # Determine list of lengths
+    highest_words_by_length = []
+    if len(highest_values) > 1:
+        for word in highest_values:
+           highest_words_by_length.append(len(word))
+
+    # Then return (word, score) for first 10 letter word if exits or first, shortest word
+
+
+    #########################################################################
+
+        # # Account for 10 letter
+        # for word in highest_values:
+        #     length = len(word)
+        #     if len(word) == 10:
+        #         return (highest_values[0], words_scores_dict[highest_values[0]]) 
+        #     elif len(word) < 10:
+        #         shorter_word = min(highest_values, key=len)
+        #         return (shorter_word, words_scores_dict[shorter_word])
+    ########################################################################3
+    else:
+        return (highest_values[0], words_scores_dict[highest_values[0]])
+    
+    
+    
+
+    # return (max_score_word, score_word(max_score_word))
     
 
 
 best_word = get_highest_word_score(words)
 print(best_word)
+
+
+
+# X - score words
+# X - find highest word scores
+    # X - put high scores in list
+# X - If only one score, return
+# If there is a tie
+    # Return first 10 letter word
+    # First shortest word is winner
+        # min()?
+        # # Between two words of equal length, first word wins
+        # # Between two words of diff length, shorter word wins
+    
+
+[3, 3, 5, 7, 8]
