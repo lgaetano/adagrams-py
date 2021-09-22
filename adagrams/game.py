@@ -38,8 +38,19 @@ def draw_letters():
     letter_pool_keys = list(LETTER_POOL.keys())
     weighted_values = list(LETTER_POOL.values())
     letter_bank = choices(letter_pool_keys, weighted_values, k=10)
-
-    return letter_bank    
+    
+    if letter in letter_bank:
+        # Ensure letter does not occur more frequently than in LETTER_POOL 
+        if letter_bank[letter] > LETTER_POOL[letter]:
+            continue
+        else:
+            # Increment letter frequency
+            letter_bank[letter] = letter_bank.get(letter, 0) + 1
+    else:
+        # Add letter
+        letter_bank[letter] = letter_bank.get(letter, 1)
+    #TODO 1. allowing for duplicates. 2. Change k to 10     
+    return list(letter_bank.keys())   #TODO -- account for duplicate letters
     
 def uses_available_letters(word, letter_bank):
     letter_bank_2 = letter_bank[:]
@@ -52,40 +63,7 @@ def uses_available_letters(word, letter_bank):
     return True
 
 def score_word(word):
-    score = 0
-
-    # list of lists
-    scores = [
-            ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S'], # 1
-            ['D', 'G'], # 2
-            ['B', 'C', 'M', 'P'], # 3
-            ['F', 'H', 'V', 'W', 'Y'], #4
-            ['K'], #5
-            ['J', 'X'],  #8
-            ['Q', 'Z'], #10
-    ]
-
-    for letter in word:
-        letter = letter.upper()
-        if letter in scores[0]:
-            score += 1
-        elif letter in scores[1]:
-            score += 2
-        elif letter in scores[2]:
-            score += 3
-        elif letter in scores[3]:
-            score += 4
-        elif letter in scores[4]:
-            score += 5
-        elif letter in scores[5]:
-            score += 8
-        elif letter in scores[6]:
-            score += 10
-
-    if 7 <= len(word) <= 10:
-        score += 8
-
-    return score
+    pass
 
 def get_highest_word_score(word_list):
     pass
