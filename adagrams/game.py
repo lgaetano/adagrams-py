@@ -28,8 +28,10 @@ LETTER_POOL = {
     'Y': 2, 
     'Z': 1
 }
+# Wave 1
 
 def draw_letters():
+    ''' Return a hand of 10 randomly selected letters for user.'''
     letter_bank = {}
 
     # Randomly select a letter according to its weight in LETTER_POOL
@@ -63,9 +65,15 @@ def draw_letters():
 
     return list(letter_bank_str)
     
+# Wave 2
+
 def uses_available_letters(word, letter_bank):
+    ''' Check that user's input word only contains letters that occur
+    in user's collection of drawn letters.'''
+    # Copy letter_bank to preserve original data
     letter_bank_2 = letter_bank[:]
 
+    # Check for presence of each letter in drawn letters
     for letter in word:
         if letter not in letter_bank_2:
             return False
@@ -73,79 +81,77 @@ def uses_available_letters(word, letter_bank):
             letter_bank_2.remove(letter)
     return True
 
+# Wave 3
+
 def score_word(word):
-    
+    ''' Return score of word according to rules of Adagrams game.'''
     score = 0
 
-    # list of lists
+    # Adagrams scoring data
     scores = [
-            ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S'], # 1
-            ['D', 'G'], # 2
-            ['B', 'C', 'M', 'P'], # 3
-            ['F', 'H', 'V', 'W', 'Y'], #4
-            ['K'], #5
-            ['J', 'X'],  #8
-            ['Q', 'Z'], #10
+            ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S'], # 1 points
+            ['D', 'G'], # 2 
+            ['B', 'C', 'M', 'P'], # 3 
+            ['F', 'H', 'V', 'W', 'Y'], #4 
+            ['K'], #5 
+            ['J', 'X'], #8 
+            ['Q', 'Z'], #10 
     ]
 
+    # Locate letter, hardcode points
     for letter in word:
         letter = letter.upper()
-        if letter in scores[0]:
+        if letter in scores[0]: #['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S']
             score += 1
-        elif letter in scores[1]:
+        elif letter in scores[1]: #['D', 'G']
             score += 2
-        elif letter in scores[2]:
+        elif letter in scores[2]: #['B', 'C', 'M', 'P']
             score += 3
-        elif letter in scores[3]:
+        elif letter in scores[3]: #['F', 'H', 'V', 'W', 'Y']
             score += 4
-        elif letter in scores[4]:
+        elif letter in scores[4]: #['K']
             score += 5
-        elif letter in scores[5]:
+        elif letter in scores[5]: #['J', 'X']
             score += 8
-        elif letter in scores[6]:
+        elif letter in scores[6]: #['Q', 'Z']
             score += 10
 
+    # Adagrams awards +8 points for words between 7-10 chars
     if 7 <= len(word) <= 10:
         score += 8
 
     return score
 
+# Wave 4
+
 def get_highest_word_score(word_list):
-    
-    # Score words and store in words_scores_dict
+    ''' Calculate word with highest score, applying Adagrams tie-breaking 
+    logic, and return the winning word in a special data structure.'''
+    # Score each word, store in words_scores_dict
     words_scores_dict = {}
     for word in word_list:
         words_scores_dict[word] = score_word(word)
     
-    # Find highest scores
+    # Find highest scores, scores stored in words_scores_dict[values]
     highest_score = max(words_scores_dict.values())
     words_with_highest_scores = [k for k, v in words_scores_dict.items() \
                                    if v == highest_score]
-    # ['BBBBBB', 'AAAAAAAAAA']
 
-    # Max, min return first respective value
+    # Alternate way to obtain words_with_highest_scores
+    # words_with_highest_scores = []
+    # for word, score in words_scores_dict.items():
+    #    if score == highest_score:
+    #        word_with_highest_scores.append(word)
+
+    # words_with_highest_scores output: ['BBBBBB', 'AAAAAAAAAA']
+
+    # Max, min functions return first respective value
     longest_word = max(words_with_highest_scores, key=len)
     shortest_word = min(words_with_highest_scores, key=len)
 
+    # A word of length 10 wins outright
     if len(longest_word) == 10:
         return (longest_word, score_word(longest_word))
+    # Otherwise the shortest word wins
     else:
         return (shortest_word, score_word(shortest_word))
-    
-    
-    
-    
-    
-    
-    
-    # highest_word = ("XXXXXXXXXX", 0)
-    # for word in word_list:
-    #     if score_word(word) >= highest_word[1]:
-    #         if len(word) == 10:
-    #             highest_word = (word,score_word(word))
-    #             return highest_word
-    #         elif len(word) < len(highest_word[0]):
-    #             highest_word = (word,score_word(word))
-    #             return highest_word
-    #         elif len(word) == len(highest_word[0]) and score_word(word) == highest_word[1]:
-    #             return highest_word
