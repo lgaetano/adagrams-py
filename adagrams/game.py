@@ -33,7 +33,7 @@ def draw_letters():
     letter_bank = {}
 
     # Randomly select a letter according to its weight in LETTER_POOL
-    for i in range(10):
+    while sum(letter_bank.values()) < 10:
         letter_pool_keys = list(LETTER_POOL.keys())
         weighted_values = list(LETTER_POOL.values())
         # random.choices(population, weights, k) --> returns single letter list
@@ -42,7 +42,7 @@ def draw_letters():
     
         if letter in letter_bank:
             # Ensure letter does not occur more frequently than in LETTER_POOL 
-            if letter_bank[letter] > LETTER_POOL[letter]:
+            if letter_bank[letter] >= LETTER_POOL[letter]:
                 pass
             else:
                 # Increment letter frequency
