@@ -33,7 +33,7 @@ def draw_letters():
     letter_bank = {}
 
     # Randomly select a letter according to its weight in LETTER_POOL
-    while len(letter_bank) < 10:
+    for i in range(10):
         letter_pool_keys = list(LETTER_POOL.keys())
         weighted_values = list(LETTER_POOL.values())
         # random.choices(population, weights, k) --> returns single letter list
@@ -49,9 +49,19 @@ def draw_letters():
                 letter_bank[letter] = letter_bank.get(letter, 0) + 1
         else:
             # Add letter
-            letter_bank[letter] = letter_bank.get(letter, 1)
-    #TODO 1. allowing for duplicates. 2. Change k to 10     
-    return list(letter_bank.keys())
+            letter_bank[letter] = 1
+
+    # Format return list
+    letter_bank_list = []
+    for letter, freq in letter_bank.items():
+        letter_bank_list.append(letter * freq)
+
+    letter_bank_str = "".join(letter_bank_list)
+
+    # Alternate way to format return list 
+    # letter_bank_list = "".join([v * k for k, v in letter_bank.items()])
+
+    return list(letter_bank_str)
     
 def uses_available_letters(word, letter_bank):
     letter_bank_2 = letter_bank[:]
@@ -101,14 +111,41 @@ def score_word(word):
     return score
 
 def get_highest_word_score(word_list):
-    highest_word = ("XXXXXXXXXX", 0)
+    
+    # Score words and store in words_scores_dict
+    words_scores_dict = {}
     for word in word_list:
-        if score_word(word) >= highest_word[1]:
-            if len(word) == 10:
-                highest_word = (word,score_word(word))
-                return highest_word
-            elif len(word) < len(highest_word[0]):
-                highest_word = (word,score_word(word))
-                return highest_word
-            elif len(word) == len(highest_word[0]) and score_word(word) == highest_word[1]:
-                return highest_word
+        words_scores_dict[word] = score_word(word)
+    
+    # Find highest scores
+    highest_score = max(words_scores_dict.values())
+    words_with_highest_scores = [k for k, v in words_scores_dict.items() \
+                                   if v == highest_score]
+    # ['BBBBBB', 'AAAAAAAAAA']
+
+    # Max, min return first respective value
+    longest_word = max(words_with_highest_scores, key=len)
+    shortest_word = min(words_with_highest_scores, key=len)
+
+    if len(longest_word) == 10:
+        return (longest_word, score_word(longest_word))
+    else:
+        return (shortest_word, score_word(shortest_word))
+    
+    
+    
+    
+    
+    
+    
+    # highest_word = ("XXXXXXXXXX", 0)
+    # for word in word_list:
+    #     if score_word(word) >= highest_word[1]:
+    #         if len(word) == 10:
+    #             highest_word = (word,score_word(word))
+    #             return highest_word
+    #         elif len(word) < len(highest_word[0]):
+    #             highest_word = (word,score_word(word))
+    #             return highest_word
+    #         elif len(word) == len(highest_word[0]) and score_word(word) == highest_word[1]:
+    #             return highest_word
