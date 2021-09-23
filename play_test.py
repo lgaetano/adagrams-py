@@ -66,28 +66,44 @@ def score_word(word):
 
 words = ["BBBBBB", "AAAAAAAAAA"]
 
-def get_highest_word_score(word_list):
+# def get_highest_word_score(word_list):
     
-    words_scores_dict = {}
+#     words_scores_dict = {}
 
-    # Score words and store in words_scores_dict
-    for word in word_list:
-        words_scores_dict[word] = score_word(word)
+#     # Score words and store in words_scores_dict
+#     for word in word_list:
+#         words_scores_dict[word] = score_word(word)
     
-    # Find highest scores
-    highest = max(words_scores_dict.values())
+#     # Find highest scores
+#     highest = max(words_scores_dict.values())
     
-    highest_values = [k for k, v in words_scores_dict.items() if v == highest]
-    # ['BBBBBB', 'AAAAAAAAAA']
-    print(f'{highest_values=}')
+#     highest_values = [k for k, v in words_scores_dict.items() if v == highest]
+#     # ['BBBBBB', 'AAAAAAAAAA']
+#     print(f'{highest_values=}')
 
-    # Determine list of lengths
-    highest_words_by_length = []
-    if len(highest_values) > 1:
-        for word in highest_values:
-           highest_words_by_length.append(len(word))
+#     # Determine list of lengths
+#     highest_words_by_length = []
+#     if len(highest_values) > 1:
+#         for word in highest_values:
+#             highest_words_by_length.append(len(word))
 
     # Then return (word, score) for first 10 letter word if exits or first, shortest word
+    ############# WAVE 4.02
+def get_highest_word_score(word_list):
+
+    highest_word = ("", 0)
+    for word in word_list:
+        if score_word(word) >= highest_word[1]:
+            if len(word) == 10:
+                highest_word = (word,score_word(word))
+                return highest_word
+            elif len(word) < highest_word[1]:
+                highest_word = (word,score_word(word))
+                return highest_word
+            elif len(word) == highest_word[0] and score_word(word) == highest_word[1]:
+                return "cat"
+
+
 
 
     #########################################################################
