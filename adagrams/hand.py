@@ -1,10 +1,14 @@
-import random
+from random import sample
 import copy
+from .game import Game
 
 # TODO: do these go in a config.py module?
-HAND_SIZE = 10
 
-SCORES = {
+class Hand:
+    """ Class to represent a hand of letters in the Adagrams game."""
+    hand_size = 10
+
+    scores = {
             'A': 1, 
             'B': 3, 
             'C': 3, 
@@ -33,8 +37,7 @@ SCORES = {
             'Z': 10
         }
 
-class Hand:
-    """ Class to represent a hand of letters in the Adagrams game."""
+
     def __init__(self, letter_pool):
         self.letters = self.draw_letters(letter_pool)
 
@@ -50,7 +53,7 @@ class Hand:
                 # ['A', 'A', 'A', ...'B', 'B',...]
 
         # Choosing 10 letters from pool 
-        letters = random.sample(letter_bank, HAND_SIZE)
+        letters = sample(letter_bank, self.hand_size)
 
         return letters
 
@@ -72,13 +75,13 @@ class Hand:
 
         return True
 
-    def score_word(word):
+    def score_word(self, word):
         """Return score of word according to rules of Adagrams game."""
         score = 0
 
         # Calculate points
         for letter in word:
-            score += SCORES[letter]
+            score += self.scores[letter]
 
         # Adagrams awards +8 points for words between 7-10 chars
         if 7 <= len(word) <= 10:
@@ -86,7 +89,7 @@ class Hand:
 
         return score
 
-    def get_highest_word_score(word_list):
+    def get_highest_word_score(self, word_list):
         """
         Calculate word with highest score, applying Adagrams tie-breaking 
         logic, and return the winning word in a special data structure."""
@@ -94,7 +97,7 @@ class Hand:
         # Score each word, store in words_scores_dict
         words_scores_dict = {}
         for word in word_list:
-            words_scores_dict[word] = score_word(word)
+            words_scores_dict[word] = self.score_word(word)
         
         # Find highest scores, scores stored in words_scores_dict[values]
         highest_score = max(words_scores_dict.values())
@@ -113,7 +116,7 @@ class Hand:
 
         # A word of length 10 wins outright
         if len(longest_word) == 10:
-            return (longest_word, score_word(longest_word))
+            return (longest_word, self.score_word(longest_word))
         # Otherwise the shortest word wins
         else:
-            return (shortest_word, score_word(shortest_word))
+            return (shortest_word, self.score_word(shortest_word))
