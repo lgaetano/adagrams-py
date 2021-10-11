@@ -37,10 +37,6 @@ class Hand:
             'Z': 10
         }
 
-
-    # def __init__(self):
-    #     pass
-
     def __init__(self, letter_pool):
         self.letters = self.draw_letters(letter_pool)
 
@@ -82,7 +78,7 @@ class Hand:
 
         # Calculate points
         for letter in word:
-            score += self.scores[letter]
+            score += self.scores[letter.upper()]
 
         # Adagrams awards +8 points for words between 7-10 chars
         if 7 <= len(word) <= 10:
