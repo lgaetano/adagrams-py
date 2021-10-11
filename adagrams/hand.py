@@ -38,6 +38,9 @@ class Hand:
         }
 
 
+    # def __init__(self):
+    #     pass
+
     def __init__(self, letter_pool):
         self.letters = self.draw_letters(letter_pool)
 
@@ -54,20 +57,18 @@ class Hand:
 
         # Choosing 10 letters from pool 
         letters = sample(letter_bank, self.hand_size)
-
         return letters
 
     def uses_avail_letters(self, word):
         """
         Check that user's input word only contains letters that occur
         in user's hand."""
-
         # Copy letters list for data integrity
-        letters_copy = copy.deepcopy(self.letters)
+        letters_copy = self.letters[:]
         
         # Confirm letters in users' word are in hand.
         for letter in word:
-            letter.upper()
+            letter = letter.upper()
             if letter in letters_copy:
                 letters_copy.remove(letter)
             else:
